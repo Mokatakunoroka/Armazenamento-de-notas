@@ -1,4 +1,4 @@
-namespace ArmazenamentoDeNotas.Domain.Enums;
+namespace Domain.Enums;
 public class AllEnums
 {
     public enum EscolherMenu

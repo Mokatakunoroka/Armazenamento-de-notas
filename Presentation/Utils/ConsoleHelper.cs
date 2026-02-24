@@ -1,7 +1,6 @@
-using System.Diagnostics.Contracts;
-using System.Linq.Expressions;
+using Presentation.ConsoleUI;
 
-namespace ArmazenamentoDeNotas.Presentation.Utils;
+namespace Presentation.Utils;
 public class Helper
 {
     public void Color(ConsoleColor backColor, ConsoleColor letterColor)

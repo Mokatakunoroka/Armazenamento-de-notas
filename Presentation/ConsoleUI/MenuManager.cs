@@ -1,12 +1,69 @@
-using ArmazenamentoDeNotas.Domain.Enums;
-namespace ArmazenamentoDeNotas.Presentation.ConsoleUI;
+using Domain.Enums;
+using Presentation.ConsoleUI.Menus;
+using Presentation.Utils;
+namespace Presentation.ConsoleUI;
 public class Manager
 {
-    private AllEnums.EscolherMenu _escolherMenu;
-    public AllEnums.EscolherMenu IniciarMenu
+    public AllEnums.EscolherMenu IniciarMenu { get; set; }
+    private Helper helper;
+    public Manager(Helper helper)
     {
-        get => _escolherMenu;
-        set => _escolherMenu = value;
+        this.helper = helper;
     }
     public int Posicao;
+    public int QtdInstanciadaMenus;
+    public void ExecutarMenu()
+    {
+        if (IniciarMenu == AllEnums.EscolherMenu.MenuInicial)
+        {
+            var MenuInicial = new MenuInicial(this, helper);
+            MenuInicial.Redirecionar();
+        }
+        else if (IniciarMenu == AllEnums.EscolherMenu.MenuMaterias)
+        {
+            var MenuMaterias = new MenuMaterias(this, helper);
+            MenuMaterias.Redirecionar();
+        }
+        else
+        {
+            var MenuEditarMaterias = new MenuEditarMaterias(this, helper);
+            MenuEditarMaterias.Redirecionar();
+        }
+    }
+    public void ApagarMenu()
+    {
+        if (IniciarMenu == AllEnums.EscolherMenu.MenuInicial)
+        {
+            AuxuliarApagarMenu(typeof(AllEnums.MenuInicial));
+        }
+        else if (IniciarMenu == AllEnums.EscolherMenu.MenuMaterias)
+        {
+            AuxuliarApagarMenu(typeof(AllEnums.Menumaterias));
+        }
+        else if (IniciarMenu == AllEnums.EscolherMenu.MenuEditarMaterias)
+        {
+            AuxuliarApagarMenu(typeof(AllEnums.MenuEditarMaterias));
+        }
+    }
+    public void AuxuliarApagarMenu(Type typeEnum)
+    {
+        int y = Enum.GetValues(typeEnum).Length + 1;
+        int x = 40;
+        while (true)
+        {
+            helper.CursorPosition(x, y);
+            Thread.Sleep(10);
+            Console.Write(" ");
+            if (x == 0)
+            {
+                x = 40;
+                y--;
+            }
+            if (y < 0)
+            {
+                break;
+            }
+            x--;
+        }
+    }
 }

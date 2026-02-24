@@ -1,0 +1,15 @@
+D:\C# Programs\Armazenamento-de-notas\bin\Debug\net10.0\Armazenamento-de-notas.exe
+D:\C# Programs\Armazenamento-de-notas\bin\Debug\net10.0\Armazenamento-de-notas.deps.json
+D:\C# Programs\Armazenamento-de-notas\bin\Debug\net10.0\Armazenamento-de-notas.runtimeconfig.json
+D:\C# Programs\Armazenamento-de-notas\bin\Debug\net10.0\Armazenamento-de-notas.dll
+D:\C# Programs\Armazenamento-de-notas\bin\Debug\net10.0\Armazenamento-de-notas.pdb
+D:\C# Programs\Armazenamento-de-notas\obj\Debug\net10.0\Armazenamento-de-notas.GeneratedMSBuildEditorConfig.editorconfig
+D:\C# Programs\Armazenamento-de-notas\obj\Debug\net10.0\Armazenamento-de-notas.AssemblyInfoInputs.cache
+D:\C# Programs\Armazenamento-de-notas\obj\Debug\net10.0\Armazenamento-de-notas.AssemblyInfo.cs
+D:\C# Programs\Armazenamento-de-notas\obj\Debug\net10.0\Armazenamento-de-notas.csproj.CoreCompileInputs.cache
+D:\C# Programs\Armazenamento-de-notas\obj\Debug\net10.0\Armazenamento-de-notas.sourcelink.json
+D:\C# Programs\Armazenamento-de-notas\obj\Debug\net10.0\Armazenamento-de-notas.dll
+D:\C# Programs\Armazenamento-de-notas\obj\Debug\net10.0\refint\Armazenamento-de-notas.dll
+D:\C# Programs\Armazenamento-de-notas\obj\Debug\net10.0\Armazenamento-de-notas.pdb
+D:\C# Programs\Armazenamento-de-notas\obj\Debug\net10.0\Armazenamento-de-notas.genruntimeconfig.cache
+D:\C# Programs\Armazenamento-de-notas\obj\Debug\net10.0\ref\Armazenamento-de-notas.dll

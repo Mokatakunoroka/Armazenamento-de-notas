@@ -1,5 +1,6 @@
-using ArmazenamentoDeNotas.Presentation.Utils;
-namespace ArmazenamentoDeNotas.Presentation.ConsoleUI.Menus;
+using Presentation.Utils;
+using Domain.Enums;
+namespace Presentation.ConsoleUI.Menus;
 public class MenuInicial : MenuBase
 {
     private readonly Helper helper;
@@ -9,22 +10,23 @@ public class MenuInicial : MenuBase
         this.helper = helper;
         this.manager = manager;
     }
-    public void WritingOptions()
+    public void Redirecionar()
     {
-        EscreverEstruturaCorreta();
-        int y = 1;
-        int indice = 0;
-        foreach (KeyValuePair<string, string> item in helper.EnumCorrected(manager.IniciarMenu.GetType()))
+        EscrevendoEstrutura();
+        AllEnums.Teclas tecla = ReescritaParcial();
+        if (tecla == AllEnums.Teclas.Enter && manager.Posicao == (int)AllEnums.MenuInicial.Cadastro)
         {
-            if (manager.Posicao == indice)
-            {
-                OpcaoSelecionada(y, item);
-            }
-            else
-            {
-                OpcaoNaoSelecionada(y, item);
-            }
-            indice++;
+            manager.ApagarMenu();
+
+        }
+        else if (tecla == AllEnums.Teclas.Enter && manager.Posicao == (int)AllEnums.MenuInicial.Login)
+        {
+            manager.ApagarMenu();
+        }
+        else if (tecla == AllEnums.Teclas.Enter && manager.Posicao == (int)AllEnums.MenuInicial.Sair)
+        {
+            helper.CursorPosition(0, Enum.GetValues(typeof(AllEnums.MenuInicial)).Length + 3);
+            Environment.Exit(0);
         }
     }
 }
