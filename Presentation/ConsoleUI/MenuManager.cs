@@ -1,3 +1,4 @@
+using Application.Service;
 using Domain.Enums;
 using Presentation.ConsoleUI.Menus;
 using Presentation.Utils;
@@ -24,10 +25,19 @@ public class Manager
             var MenuMaterias = new MenuMaterias(this, helper);
             MenuMaterias.Redirecionar();
         }
-        else
+        else if (IniciarMenu == AllEnums.EscolherMenu.MenuEditarMaterias)
         {
             var MenuEditarMaterias = new MenuEditarMaterias(this, helper);
             MenuEditarMaterias.Redirecionar();
+        }
+        else if (IniciarMenu == AllEnums.EscolherMenu.Cadastro)
+        {
+            var Cadastro = new Cadastro(this, helper);
+            Cadastro.UserPassword();
+        }
+        else
+        {
+            //Login
         }
     }
     public void ApagarMenu()

@@ -48,4 +48,9 @@ public class Helper
         }
         return resultDict;
     }
+    public string Input(string mensagem)
+    {
+        Console.Write(mensagem);
+        return Console.ReadLine() ?? "";
+    }
 }

@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Presentation.Utils;
 namespace Presentation.ConsoleUI.Menus;
 public class MenuBase
@@ -22,6 +23,14 @@ public class MenuBase
         else if (manager.IniciarMenu == Domain.Enums.AllEnums.EscolherMenu.MenuEditarMaterias)
         {
             EstruturaBase(typeof(Domain.Enums.AllEnums.MenuEditarMaterias));
+        }
+        else if (manager.IniciarMenu == Domain.Enums.AllEnums.EscolherMenu.Cadastro)
+        {
+            EstruturaBase(typeof(Domain.Enums.AllEnums.Cadastro));
+        }
+        else
+        {
+            EstruturaBase(typeof(Domain.Enums.AllEnums.Login));
         }
     }
     private void EstruturaBase(Type qualEnum)
@@ -54,6 +63,14 @@ public class MenuBase
             {
                 AuxiliarEscreverOpcoes(typeof(Domain.Enums.AllEnums.MenuEditarMaterias));
             }
+            else if (manager.IniciarMenu == Domain.Enums.AllEnums.EscolherMenu.Cadastro)
+            {
+                AuxiliarEscreverOpcoes(typeof(Domain.Enums.AllEnums.Cadastro));
+            }
+            else
+            {
+                AuxiliarEscreverOpcoes(typeof(Domain.Enums.AllEnums.Login));
+            }
         }
     }
     private void AuxiliarEscreverOpcoes(Type typeEnum)
@@ -62,20 +79,33 @@ public class MenuBase
         int indice = 0;
         foreach (KeyValuePair<string, string> item in helper.EnumCorrected(typeEnum))
         {
-            if (manager.Posicao == indice) //opção selecionada
+            if (manager.IniciarMenu != Domain.Enums.AllEnums.EscolherMenu.Cadastro && manager.IniciarMenu != Domain.Enums.AllEnums.EscolherMenu.Login)
             {
-                helper.CursorPosition(2, y);
-                helper.Color(ConsoleColor.Green, ConsoleColor.Red);
-                Console.WriteLine($"> {item.Key}.");
-                Console.ResetColor();
+                SubAuxiliarOpcoes(indice, item, y, '.');
+                y++;
+                indice++;
             }
-            else // Opção não selecionada
+            else
             {
-                helper.CursorPosition(2, y);
-                Console.WriteLine($"  {item.Key}.");
+                SubAuxiliarOpcoes(indice, item, y, ':');
+                y++;
+                indice++;
             }
-            y++;
-            indice++;
+        }
+    }
+    private void SubAuxiliarOpcoes(int indice, KeyValuePair<string, string> item, int y, char final)
+    {
+         if (manager.Posicao == indice) //opção selecionada
+        {
+            helper.CursorPosition(2, y);
+            helper.Color(ConsoleColor.Green, ConsoleColor.Red);
+            Console.WriteLine($"> {item.Key}{final}");
+            Console.ResetColor();
+        }
+        else // Opção não selecionada
+        {
+            helper.CursorPosition(2, y);
+            Console.WriteLine($"  {item.Key}{final}");
         }
     }
     protected Domain.Enums.AllEnums.Teclas TeclaPressionada()
@@ -87,7 +117,7 @@ public class MenuBase
             ConsoleKey.Enter => Domain.Enums.AllEnums.Teclas.Enter,
             _ => Domain.Enums.AllEnums.Teclas.Nenhuma
         };
-        //Preciso verificar o numero da poição atual e fazer alterações no thi.posição
+        //Preciso verificar o numero da poição atual e fazer alterações no this.posição
         if (Tecla == Domain.Enums.AllEnums.Teclas.Subir && manager.Posicao> 0)
         {
             manager.Posicao--;
@@ -108,9 +138,17 @@ public class MenuBase
         {
             return typeof(Domain.Enums.AllEnums.Menumaterias);
         }
-        else
+        else if (manager.IniciarMenu == Domain.Enums.AllEnums.EscolherMenu.MenuEditarMaterias)
         {
             return typeof(Domain.Enums.AllEnums.MenuEditarMaterias);
+        }
+        else if (manager.IniciarMenu == Domain.Enums.AllEnums.EscolherMenu.Cadastro)
+        {
+            return typeof(Domain.Enums.AllEnums.Cadastro);
+        }
+        else
+        {
+            return typeof(Domain.Enums.AllEnums.Login);
         }
     }
     protected Domain.Enums.AllEnums.Teclas ReescritaParcial()
@@ -129,6 +167,14 @@ public class MenuBase
         {
             AuxiliarReescritaParcial(typeof(Domain.Enums.AllEnums.MenuEditarMaterias));
         }
+        else if (manager.IniciarMenu == Domain.Enums.AllEnums.EscolherMenu.Cadastro)
+        {
+            AuxiliarReescritaParcial(typeof(Domain.Enums.AllEnums.Cadastro));
+        }
+        else
+        {
+            AuxiliarReescritaParcial(typeof(Domain.Enums.AllEnums.Login));
+        }
         return tecla;
     }
     protected void AuxiliarReescritaParcial(Type typeEnum)
@@ -138,20 +184,33 @@ public class MenuBase
         int y = 1;
         foreach (KeyValuePair<string, string> item in helper.EnumCorrected(typeEnum))
         {
-            if (manager.Posicao == indice)
+            if (manager.IniciarMenu != Domain.Enums.AllEnums.EscolherMenu.Cadastro && manager.IniciarMenu != Domain.Enums.AllEnums.EscolherMenu.Login)
             {
-                helper.Color(backColor: ConsoleColor.Green, letterColor: ConsoleColor.Red);
-                helper.CursorPosition(2, y);
-                Console.WriteLine($"> {item.Key}.");
-                Console.ResetColor();
+                SubAuxiliarParcial(indice, item, y, posicaoAnterior, '.');
+                indice++;
+                y++;
             }
-            else if(manager.Posicao == posicaoAnterior)
+            else
             {
-                helper.CursorPosition(2, y);
-                Console.WriteLine($"  {item.Key}.");
+                SubAuxiliarParcial(indice, item, y, posicaoAnterior, ':');
+                indice++;
+                y++;
             }
-            indice++;
-            y++;
+        }
+    }
+    private void SubAuxiliarParcial(int indice, KeyValuePair<string, string> item, int y, int posicaoAnterior, char final)
+    {
+        if (manager.Posicao == indice)
+        {
+            helper.Color(backColor: ConsoleColor.Green, letterColor: ConsoleColor.Red);
+            helper.CursorPosition(2, y);
+            Console.WriteLine($"> {item.Key}{final}");
+            Console.ResetColor();
+        }
+        else if(manager.Posicao == posicaoAnterior)
+        {
+            helper.CursorPosition(2, y);
+            Console.WriteLine($"  {item.Key}{final}");
         }
     }
 }

@@ -5,7 +5,9 @@ public class AllEnums
     {
         MenuInicial,
         MenuEditarMaterias,
-        MenuMaterias
+        MenuMaterias,
+        Cadastro,
+        Login
     }
     public enum MenuInicial
     {
@@ -33,5 +35,15 @@ public class AllEnums
         Descer,
         Enter,
         Nenhuma
+    }
+    public enum Cadastro
+    {
+        DigiteSeuNomeParaOCadastro,
+        DigiteSuaSenha
+    }
+    public enum Login
+    {
+        DigiteSeuNome,
+        DigiteSuaSenha,
     }
 }
