@@ -7,7 +7,8 @@ public class AllEnums
         MenuEditarMaterias,
         MenuMaterias,
         Cadastro,
-        Login
+        Login,
+        Periodo
     }
     public enum MenuInicial
     {
@@ -45,5 +46,15 @@ public class AllEnums
     {
         DigiteSeuNome,
         DigiteSuaSenha,
+    }
+    public enum MensagemErro
+    {
+        DigiteAlgoVálido
+    }
+    public enum Periodo
+    {
+        Bimestre,
+        Trimestre,
+        Semestre
     }
 }

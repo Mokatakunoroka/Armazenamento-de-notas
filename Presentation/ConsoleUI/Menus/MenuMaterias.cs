@@ -15,15 +15,15 @@ public class MenuMaterias : MenuBase
         Domain.Enums.AllEnums.Teclas tecla = ReescritaParcial();
         if (tecla == Domain.Enums.AllEnums.Teclas.Enter && manager.Posicao == (int)Domain.Enums.AllEnums.Menumaterias.VerMaterias)
         {
-            manager.ApagarMenu();
+            ApagarMenu();
         }
         else if (tecla == Domain.Enums.AllEnums.Teclas.Enter && manager.Posicao == (int)Domain.Enums.AllEnums.Menumaterias.AdicionarMaterias)
         {
-            manager.ApagarMenu();
+            ApagarMenu();
         }
         else if (tecla == Domain.Enums.AllEnums.Teclas.Enter && manager.Posicao == (int)Domain.Enums.AllEnums.Menumaterias.EditarMaterias)
         {
-            manager.ApagarMenu();
+            ApagarMenu();
             manager.QtdInstanciadaMenus = 0;
             manager.Posicao = 0;
             manager.IniciarMenu = Domain.Enums.AllEnums.EscolherMenu.MenuEditarMaterias;

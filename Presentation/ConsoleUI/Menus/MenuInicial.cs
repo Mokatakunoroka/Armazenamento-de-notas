@@ -16,12 +16,15 @@ public class MenuInicial : MenuBase
         AllEnums.Teclas tecla = ReescritaParcial();
         if (tecla == AllEnums.Teclas.Enter && manager.Posicao == (int)AllEnums.MenuInicial.Cadastro)
         {
-            manager.ApagarMenu();
+            ApagarMenu();
+            manager.IniciarMenu = AllEnums.EscolherMenu.Cadastro;
+            manager.Posicao = 0;
+            manager.QtdInstanciadaMenus = 0;
 
         }
         else if (tecla == AllEnums.Teclas.Enter && manager.Posicao == (int)AllEnums.MenuInicial.Login)
         {
-            manager.ApagarMenu();
+            ApagarMenu();
         }
         else if (tecla == AllEnums.Teclas.Enter && manager.Posicao == (int)AllEnums.MenuInicial.Sair)
         {

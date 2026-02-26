@@ -32,48 +32,17 @@ public class Manager
         }
         else if (IniciarMenu == AllEnums.EscolherMenu.Cadastro)
         {
-            var Cadastro = new Cadastro(this, helper);
-            Cadastro.UserPassword();
+            var stringHelper = new StringHelper(this, helper);
+            var Cadastro = new Cadastro(this, helper, stringHelper);
+            var (usuario, senha, periodo, materias) = Cadastro.InputInfoUser();
         }
-        else
+        else if (IniciarMenu == AllEnums.EscolherMenu.Login)
         {
             //Login
         }
-    }
-    public void ApagarMenu()
-    {
-        if (IniciarMenu == AllEnums.EscolherMenu.MenuInicial)
+        else
         {
-            AuxuliarApagarMenu(typeof(AllEnums.MenuInicial));
-        }
-        else if (IniciarMenu == AllEnums.EscolherMenu.MenuMaterias)
-        {
-            AuxuliarApagarMenu(typeof(AllEnums.Menumaterias));
-        }
-        else if (IniciarMenu == AllEnums.EscolherMenu.MenuEditarMaterias)
-        {
-            AuxuliarApagarMenu(typeof(AllEnums.MenuEditarMaterias));
-        }
-    }
-    public void AuxuliarApagarMenu(Type typeEnum)
-    {
-        int y = Enum.GetValues(typeEnum).Length + 1;
-        int x = 40;
-        while (true)
-        {
-            helper.CursorPosition(x, y);
-            Thread.Sleep(10);
-            Console.Write(" ");
-            if (x == 0)
-            {
-                x = 40;
-                y--;
-            }
-            if (y < 0)
-            {
-                break;
-            }
-            x--;
+            //Periodo
         }
     }
 }

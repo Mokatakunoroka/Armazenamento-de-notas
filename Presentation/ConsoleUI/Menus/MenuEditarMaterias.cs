@@ -16,23 +16,23 @@ public class MenuEditarMaterias : MenuBase
         AllEnums.Teclas tecla = ReescritaParcial();
         if (tecla == AllEnums.Teclas.Enter && manager.Posicao == (int)AllEnums.MenuEditarMaterias.AlterarNome)
         {
-            manager.ApagarMenu();
+            ApagarMenu();
         }
         else if (tecla == AllEnums.Teclas.Enter && manager.Posicao == (int)AllEnums.MenuEditarMaterias.AlterarNota)
         {
-            manager.ApagarMenu();
+            ApagarMenu();
         }
         else if (tecla == AllEnums.Teclas.Enter && manager.Posicao == (int)AllEnums.MenuEditarMaterias.AlterarPeríodo)
         {
-            manager.ApagarMenu();
+            ApagarMenu();
         }
         else if (tecla == AllEnums.Teclas.Enter && manager.Posicao == (int)AllEnums.MenuEditarMaterias.ExcluirMaterias)
         {
-            manager.ApagarMenu();
+            ApagarMenu();
         }
         else if (tecla == AllEnums.Teclas.Enter && manager.Posicao == (int)AllEnums.MenuEditarMaterias.Voltar)
         {
-            manager.ApagarMenu();
+            ApagarMenu();
             manager.QtdInstanciadaMenus = 0;
             manager.Posicao = 0;
             manager.IniciarMenu = AllEnums.EscolherMenu.MenuMaterias;

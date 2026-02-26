@@ -1,5 +1,4 @@
-using Presentation.ConsoleUI;
-
+using Domain.Enums;
 namespace Presentation.Utils;
 public class Helper
 {
@@ -48,9 +47,51 @@ public class Helper
         }
         return resultDict;
     }
-    public string Input(string mensagem)
+    public string MensagemErro(AllEnums.MensagemErro mensagemErro)
     {
-        Console.Write(mensagem);
-        return Console.ReadLine() ?? "";
+        string resultado = "";
+        int contador = 0;
+        foreach (char letra in mensagemErro.ToString())
+        {
+            if (char.IsUpper(letra) && contador == 0)
+            {
+                resultado += letra;
+            }
+            else if (char.IsUpper(letra))
+            {
+                resultado += ' ';
+                resultado += letra;
+            }
+            else
+            {
+                resultado += letra;
+            }
+            contador++;
+        }
+        return resultado;
+    }
+    public AllEnums.MensagemErro VoltarMensagemErroParaEnum(string mensagemErro)
+    {
+        string resultado = "";
+        int contador = 0;
+        foreach (char letra in mensagemErro)
+        {
+            if (char.IsUpper(letra) && contador == 0 )
+            {
+                resultado += letra;
+            }
+            else if (!char.IsWhiteSpace(letra))
+            {
+                resultado += letra;
+            }
+        }
+        if (Enum.TryParse(resultado, out AllEnums.MensagemErro valor)) 
+        {
+            return valor;
+        }
+        else
+        {
+            throw new ArgumentException("Não foi possível voltar para o enum");
+        }
     }
 }
