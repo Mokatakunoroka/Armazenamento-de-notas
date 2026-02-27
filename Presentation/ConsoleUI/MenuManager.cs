@@ -1,5 +1,6 @@
 using Application.Service;
 using Domain.Enums;
+using Infrastructure.Persistence;
 using Presentation.ConsoleUI.Menus;
 using Presentation.Utils;
 namespace Presentation.ConsoleUI;
@@ -34,7 +35,11 @@ public class Manager
         {
             var stringHelper = new StringHelper(this, helper);
             var Cadastro = new Cadastro(this, helper, stringHelper);
-            var (usuario, senha, periodo, materias) = Cadastro.InputInfoUser();
+            var (usuario, senha, periodo) = Cadastro.InputInfoUser();
+            var JsonRepository = new JsonRepository();
+            JsonRepository.SalvarUsuario(usuario, senha, periodo);
+            IniciarMenu = AllEnums.EscolherMenu.MenuMaterias;
+            QtdInstanciadaMenus = 0;
         }
         else if (IniciarMenu == AllEnums.EscolherMenu.Login)
         {

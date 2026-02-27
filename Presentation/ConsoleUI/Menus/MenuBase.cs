@@ -346,4 +346,17 @@ public class MenuBase
             }
         }
     }
+    public void ApagarLinha(int xInicial, int xFinal, int y)
+    {
+        while (true)
+        {
+            helper.CursorPosition(xFinal, y);
+            Console.Write(" ");
+            xFinal--;
+            if (xFinal == xInicial - 1)
+            {
+                break;
+            }
+        }
+    }
 }

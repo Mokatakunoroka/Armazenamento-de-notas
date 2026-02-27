@@ -25,17 +25,17 @@ public class StringHelper
     {
         if (entrada.Length < 3)
         {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
     public bool ValidarEntrada(string entrada)
     {
         if (string.IsNullOrWhiteSpace(entrada))
         {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
 }
