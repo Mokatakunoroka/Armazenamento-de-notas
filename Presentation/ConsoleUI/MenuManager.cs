@@ -36,7 +36,7 @@ public class Manager
             var stringHelper = new StringHelper(this, helper);
             var Cadastro = new Cadastro(this, helper, stringHelper);
             var (usuario, senha, periodo) = Cadastro.InputInfoUser();
-            var JsonRepository = new JsonRepository();
+            var JsonRepository = new JsonRepository(helper);
             JsonRepository.SalvarUsuario(usuario, senha, periodo);
             IniciarMenu = AllEnums.EscolherMenu.MenuMaterias;
             QtdInstanciadaMenus = 0;

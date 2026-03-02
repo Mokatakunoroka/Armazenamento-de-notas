@@ -35,15 +35,15 @@ public class Cadastro : MenuBase
                 helper.CursorPosition(0, 5);
                 Console.WriteLine("Por favor digite um nome de usuário e senha válidos.");
                 Console.CursorVisible = false;
-                ApagarLinha(37, 40, 1);
-                ApagarLinha(22, 40, 2);
+                helper.ApagarLinha(37, 40, 1);
+                helper.ApagarLinha(22, 40, 2);
                 Console.ReadKey(true);
                 helper.CursorPosition(37, 1);
             }
         }
-        ApagarMenu();
+        helper.ApagarMenu(manager.IniciarMenu);
         AllEnums.Periodo periodo = RetornaPeriodo();
-        ApagarMenu();
+        helper.ApagarMenu(manager.IniciarMenu);
         return (usuario, senha, periodo);
     }
     public AllEnums.Periodo RetornaPeriodo()

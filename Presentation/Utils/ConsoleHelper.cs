@@ -1,4 +1,5 @@
 using Domain.Enums;
+using Presentation.ConsoleUI;
 namespace Presentation.Utils;
 public class Helper
 {
@@ -92,6 +93,91 @@ public class Helper
         else
         {
             throw new ArgumentException("Não foi possível voltar para o enum");
+        }
+    }
+    public void ApagarMenu(AllEnums.EscolherMenu MenuInicializado)
+    {
+        if (MenuInicializado == AllEnums.EscolherMenu.MenuInicial)
+        {
+            AuxiliarApagarMenu(typeof(AllEnums.MenuInicial));
+        }
+        else if (MenuInicializado == AllEnums.EscolherMenu.MenuMaterias)
+        {
+            AuxiliarApagarMenu(typeof(AllEnums.Menumaterias));
+        }
+        else if (MenuInicializado == AllEnums.EscolherMenu.MenuEditarMaterias)
+        {
+            AuxiliarApagarMenu(typeof(AllEnums.MenuEditarMaterias));
+        }
+        else if (MenuInicializado == AllEnums.EscolherMenu.Cadastro)
+        {
+            AuxiliarApagarMenu(typeof(AllEnums.Cadastro));
+        }
+        else if (MenuInicializado == AllEnums.EscolherMenu.Login)
+        {
+            AuxiliarApagarMenu(typeof(AllEnums.Login));
+        }
+        else
+        {
+            AuxiliarApagarMenu(typeof(AllEnums.Periodo));
+        }
+    }
+    public void AuxiliarApagarMenu(Type typeEnum)
+    {
+        if (typeEnum == typeof(AllEnums.Cadastro) || typeEnum == typeof(AllEnums.Login))
+        {
+            int y = 5;
+            int x = 80;
+            while (true)
+            {
+                CursorPosition(x, y);
+                Thread.Sleep(5);
+                Console.Write(" ");
+                if (x == 0)
+                {
+                    x = 80;
+                    y--;
+                }
+                if (y < 0)
+                {
+                    break;
+                }
+                x--;
+            }
+        }
+        else
+        {
+            int x = 40;
+            int y = Enum.GetValues(typeEnum).Length + 1;
+            while (true)
+            {
+                CursorPosition(x, y);
+                Thread.Sleep(10);
+                Console.Write(" ");
+                if (x == 0)
+                {
+                    x = 40;
+                    y--;
+                }
+                if (y < 0)
+                {
+                    break;
+                }
+                x--;
+            }
+        }
+    }
+    public void ApagarLinha(int xInicial, int xFinal, int y)
+    {
+        while (true)
+        {
+            CursorPosition(xFinal, y);
+            Console.Write(" ");
+            xFinal--;
+            if (xFinal == xInicial - 1)
+            {
+                break;
+            }
         }
     }
 }
