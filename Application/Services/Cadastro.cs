@@ -15,13 +15,13 @@ public class Cadastro : MenuBase
         this.manager = manager;
         this.stringHelper = stringHelper;
     }
-    public (string usuario, string senha, AllEnums.Periodo) InputInfoUser()
+    public (string usuario, string senha, AllEnums.Periodo periodo) InputInfoUser()
     {
         string usuario = "";
         string senha = "";
+        EscrevendoEstrutura();
         while (true)
         {
-            EscrevendoEstrutura();
             Console.CursorVisible = true;
             usuario = stringHelper.Input(37, 1);
             senha = stringHelper.Input(22, 2);
@@ -44,6 +44,7 @@ public class Cadastro : MenuBase
         helper.ApagarMenu(manager.IniciarMenu);
         AllEnums.Periodo periodo = RetornaPeriodo();
         helper.ApagarMenu(manager.IniciarMenu);
+        //LER O JSON, TRANSFORMAR EM OBJETO E SALVAR O CONTEUDO DO USUÁRIO NA PROPRIEDADE UsuarioLogado
         return (usuario, senha, periodo);
     }
     public AllEnums.Periodo RetornaPeriodo()

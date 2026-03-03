@@ -1,4 +1,5 @@
 using Application.Service;
+using Domain.Enttities;
 using Domain.Enums;
 using Infrastructure.Persistence;
 using Presentation.ConsoleUI.Menus;
@@ -7,6 +8,7 @@ namespace Presentation.ConsoleUI;
 public class Manager
 {
     public AllEnums.EscolherMenu IniciarMenu { get; set; }
+    public Informacoes UsuarioLogado {get; set;}
     private Helper helper;
     public Manager(Helper helper)
     {
@@ -23,7 +25,8 @@ public class Manager
         }
         else if (IniciarMenu == AllEnums.EscolherMenu.MenuMaterias)
         {
-            var MenuMaterias = new MenuMaterias(this, helper);
+            var JsonRepository = new JsonRepository(helper);
+            var MenuMaterias = new MenuMaterias(this, helper, JsonRepository);
             MenuMaterias.Redirecionar();
         }
         else if (IniciarMenu == AllEnums.EscolherMenu.MenuEditarMaterias)
@@ -39,11 +42,23 @@ public class Manager
             var JsonRepository = new JsonRepository(helper);
             JsonRepository.SalvarUsuario(usuario, senha, periodo);
             IniciarMenu = AllEnums.EscolherMenu.MenuMaterias;
+            Posicao = 0;
             QtdInstanciadaMenus = 0;
         }
         else if (IniciarMenu == AllEnums.EscolherMenu.Login)
         {
-            //Login
+            var Login = new Login(helper, this, new StringHelper(this, helper));
+            var inputLogin = Login.InputLogin(); //Ele retorna pro menu inicial caso seja nulo
+            if (inputLogin.HasValue)
+            {
+                if (Login.Logar(inputLogin.Value.usuario, inputLogin.Value.senha))
+                {
+                    IniciarMenu = AllEnums.EscolherMenu.MenuMaterias;
+                    Posicao = 0;
+                    QtdInstanciadaMenus = 0;
+                }
+            }
+
         }
         else
         {

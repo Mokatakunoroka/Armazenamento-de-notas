@@ -5,6 +5,12 @@
       "senha": "",
       "periodo": 0,
       "listaMaterias": []
+    },
+    {
+      "usuario": "peixe dourado",
+      "senha": "123",
+      "periodo": 2,
+      "listaMaterias": []
     }
   ]
 }

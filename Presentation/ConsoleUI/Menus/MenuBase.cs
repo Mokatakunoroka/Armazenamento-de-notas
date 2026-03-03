@@ -99,7 +99,7 @@ public class MenuBase
         int indice = 0;
         foreach (KeyValuePair<string, string> item in helper.EnumCorrected(typeEnum))
         {
-            if (manager.IniciarMenu != Domain.Enums.AllEnums.EscolherMenu.Cadastro && manager.IniciarMenu != Domain.Enums.AllEnums.EscolherMenu.Login)
+            if (manager.IniciarMenu != AllEnums.EscolherMenu.Cadastro && manager.IniciarMenu != AllEnums.EscolherMenu.Login)
             {
                 SubAuxiliarOpcoes(indice, item, y, '.', typeEnum);
                 y++;

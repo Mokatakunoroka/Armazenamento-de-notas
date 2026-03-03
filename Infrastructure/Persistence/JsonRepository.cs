@@ -49,8 +49,9 @@ public class JsonRepository : JsonFileHelper
             BancoDeUsuarios? banco = JsonSerializer.Deserialize<BancoDeUsuarios>(jsonLido);
             if (banco == null || banco.Users == null)
             {
-                Console.SetCursorPosition(0, 8);
+                helper.CursorPosition(0, 8);
                 Console.WriteLine("Banco nulo.");
+                helper.CursorPosition(0, 0);
             }
             else
             {
@@ -71,9 +72,10 @@ public class JsonRepository : JsonFileHelper
                 }
                 if (!encontrouUsuario)
                 {
-                    Console.SetCursorPosition(0, 8);
+                    helper.CursorPosition(0, 8);
                     Console.WriteLine("Usuario não encontrado.");
                     helper.ApagarLinha(0, 20, 8);
+                    helper.CursorPosition(0, 0);
                 }
                 else
                 {
@@ -84,8 +86,11 @@ public class JsonRepository : JsonFileHelper
         }
         else
         {
-            Console.SetCursorPosition(0, 8);
+            helper.CursorPosition(0, 8);
             Console.WriteLine("Não existe nenhum arquivo.");
+            helper.CursorPosition(0, 0);
         }
+        helper.ApagarLinha(0, 20, 8);
+        helper.CursorPosition(0, 0);
     }
 }

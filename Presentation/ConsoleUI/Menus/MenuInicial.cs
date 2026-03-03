@@ -16,7 +16,7 @@ public class MenuInicial : MenuBase
         AllEnums.Teclas tecla = ReescritaParcial();
         if (tecla == AllEnums.Teclas.Enter && manager.Posicao == (int)AllEnums.MenuInicial.Cadastro)
         {
-            helper.ApagarMenu();
+            helper.ApagarMenu(manager.IniciarMenu);
             manager.IniciarMenu = AllEnums.EscolherMenu.Cadastro;
             manager.Posicao = 0;
             manager.QtdInstanciadaMenus = 0;
@@ -24,7 +24,11 @@ public class MenuInicial : MenuBase
         }
         else if (tecla == AllEnums.Teclas.Enter && manager.Posicao == (int)AllEnums.MenuInicial.Login)
         {
-            helper.ApagarMenu();
+            helper.ApagarMenu(manager.IniciarMenu);
+            manager.IniciarMenu = AllEnums.EscolherMenu.Login;
+            manager.Posicao = 0;
+            manager.QtdInstanciadaMenus = 0;
+
         }
         else if (tecla == AllEnums.Teclas.Enter && manager.Posicao == (int)AllEnums.MenuInicial.Sair)
         {

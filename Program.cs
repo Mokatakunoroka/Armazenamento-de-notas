@@ -11,7 +11,7 @@ class Program
         bool ativo = true;
         while (ativo)
         {
-            Manager.ExecutarMenu(); //O JSON CADASTRO ESTÁ SOBRESCREVENDO O OUTRO.
+            Manager.ExecutarMenu(); //LANÇAR EXCEÇÃO NOS JSON NO DESIRELIZE PQ PODEM ESTAR INVÁLIDOS NA CONVERSÃO.
         }
     }
 }

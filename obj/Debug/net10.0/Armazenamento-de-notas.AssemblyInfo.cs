@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Armazenamento-de-notas")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8bef014c82dadb3669b2edcb25014f5cea3f66dd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b7029dd0c18dc9fed5cd8a4d1a976742a9cafe52")]
 [assembly: System.Reflection.AssemblyProductAttribute("Armazenamento-de-notas")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Armazenamento-de-notas")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
