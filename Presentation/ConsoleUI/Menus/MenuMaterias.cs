@@ -23,9 +23,7 @@ public class MenuMaterias : MenuBase
         else if (tecla == Domain.Enums.AllEnums.Teclas.Enter && manager.Posicao == (int)Domain.Enums.AllEnums.Menumaterias.AdicionarMaterias)
         {
             helper.ApagarMenu(manager.IniciarMenu);
-            //ADICIONAR A FUNÇÃO DE ADICIONAR MATÉRIAS
-            //json.AdicionarMaterias();
-            //Preciso saber o usuário que está logado.
+            //json.AdicionarMaterias(manager.UsuarioLogado.usuario);
 
         }
         else if (tecla == Domain.Enums.AllEnums.Teclas.Enter && manager.Posicao == (int)Domain.Enums.AllEnums.Menumaterias.EditarMaterias)

@@ -7,90 +7,101 @@ namespace Infrastructure.Persistence;
 public class JsonRepository : JsonFileHelper
 {
     private Helper helper;
-    public JsonRepository(Helper helper)
+    private Manager manager;
+    public JsonRepository(Helper helper, Manager manager) : base(manager, helper)
     {
         this.helper = helper;
+        this.manager = manager;
     }
     public void SalvarUsuario(string usuario, string senha, AllEnums.Periodo periodo)
     {
-        if (File.Exists("dados.json"))
+        try
         {
-            string jsonLido = File.ReadAllText("dados.json"); //Lendo o arquivo
-            BancoDeUsuarios json = JsonSerializer.Deserialize<BancoDeUsuarios>(jsonLido)!; //Transformando o que foi lido em objeto
-            Informacoes novasInformacoes = new Informacoes() //Adicionando as novas informações
+            if (File.Exists("dados.json"))
             {
-                usuario = usuario,
-                senha = senha,
-                periodo = periodo
-            };
-            json.Users.Add(novasInformacoes); //adicionando as informações ao objeto
-            string jsonString = JsonSerializer.Serialize(json, new JsonSerializerOptions {WriteIndented = true}); //transformando objeto em string
-            File.WriteAllText("dados.json", jsonString); //escrevendo novamente no arquivo
+                string jsonLido = File.ReadAllText("dados.json"); //Lendo o arquivo
+                BancoDeUsuarios json = JsonSerializer.Deserialize<BancoDeUsuarios>(jsonLido)!;//Transformando o que foi lido em objeto
+                if (json == null || json.Users == null)
+                {
+                    throw new ArgumentException("Banco inválido");
+                }
+                Informacoes novasInformacoes = new Informacoes() //Adicionando as novas informações
+                {
+                    usuario = usuario,
+                    senha = senha,
+                    periodo = periodo
+                };
+                json.Users.Add(novasInformacoes); //adicionando as informações ao objeto
+                string jsonString = JsonSerializer.Serialize(json, new JsonSerializerOptions {WriteIndented = true}); //transformando objeto em string
+                File.WriteAllText("dados.json", jsonString); //escrevendo no arquivo
+            }
+            else
+            {
+                BancoDeUsuarios bancoDeUsuarios = new BancoDeUsuarios();
+                Informacoes informacoes = new Informacoes()
+                {
+                    usuario = usuario,
+                    senha = senha,
+                    periodo = periodo,
+                };
+                bancoDeUsuarios.Users.Add(informacoes);
+                string json = JsonSerializer.Serialize(bancoDeUsuarios, new JsonSerializerOptions(){ WriteIndented = true}); //transformando o objeto em string
+                File.WriteAllText("dados.json", json); // escrevendo no arquivo
+            }
         }
-        else
+        catch (ArgumentException ex)
         {
-            BancoDeUsuarios bancoDeUsuarios = new BancoDeUsuarios();
-            Informacoes informacoes = new Informacoes()
-            {
-                usuario = usuario,
-                senha = senha,
-                periodo = periodo,
-            };
-            bancoDeUsuarios.Users.Add(informacoes);
-            string json = JsonSerializer.Serialize(bancoDeUsuarios, new JsonSerializerOptions(){ WriteIndented = true}); //transformando o objeto em string
-            File.WriteAllText("dados.json", json); // escrevendo no arquivo
+            helper.TratarErro(ex);
         }
     }
     public void AdicionarMaterias(string usuario, KeyValuePair<string, float> materia)
     {
-        if (File.Exists("dados.json"))
+        try
         {
-            string jsonLido = File.ReadAllText("dados.json");
-            BancoDeUsuarios? banco = JsonSerializer.Deserialize<BancoDeUsuarios>(jsonLido);
-            if (banco == null || banco.Users == null)
+            if (File.Exists("dados.json"))
             {
-                helper.CursorPosition(0, 8);
-                Console.WriteLine("Banco nulo.");
-                helper.CursorPosition(0, 0);
-            }
-            else
-            {
-                bool encontrouUsuario = false;
-                foreach (Informacoes conteudo in banco.Users)
+                string jsonLido = File.ReadAllText("dados.json");
+                BancoDeUsuarios? banco = JsonSerializer.Deserialize<BancoDeUsuarios>(jsonLido);
+                if (banco == null || banco.Users == null)
                 {
-                    if (conteudo.usuario == usuario)
-                    {
-                        ListaMaterias lista = new ListaMaterias()
-                        {
-                            nome = materia.Key,
-                            nota = materia.Value
-                        };
-                        conteudo.listaMaterias.Add(lista);
-                        encontrouUsuario = true;
-                        break;
-                    }
-                }
-                if (!encontrouUsuario)
-                {
-                    helper.CursorPosition(0, 8);
-                    Console.WriteLine("Usuario não encontrado.");
-                    helper.ApagarLinha(0, 20, 8);
-                    helper.CursorPosition(0, 0);
+                    throw new ArgumentException("Banco nulo");
                 }
                 else
                 {
-                    string json = JsonSerializer.Serialize(banco, new JsonSerializerOptions() {WriteIndented = true});
-                    File.WriteAllText("dados.json", json);
+                    bool encontrouUsuario = false;
+                    foreach (Informacoes conteudo in banco.Users)
+                    {
+                        if (conteudo.usuario == usuario)
+                        {
+                            ListaMaterias lista = new ListaMaterias()
+                            {
+                                nome = materia.Key,
+                                nota = materia.Value
+                            };
+                            conteudo.listaMaterias.Add(lista);
+                            encontrouUsuario = true;
+                            break;
+                        }
+                    }
+                    if (!encontrouUsuario)
+                    {
+                        throw new ArgumentException("Usuário não encontrado.");
+                    }
+                    else
+                    {
+                        string json = JsonSerializer.Serialize(banco, new JsonSerializerOptions() {WriteIndented = true});
+                        File.WriteAllText("dados.json", json);
+                    }
                 }
             }
+            else
+            {
+                throw new ArgumentException("O arquivo não existe.");
+            }
         }
-        else
+        catch (ArgumentException ex)
         {
-            helper.CursorPosition(0, 8);
-            Console.WriteLine("Não existe nenhum arquivo.");
-            helper.CursorPosition(0, 0);
+            helper.TratarErro(ex);
         }
-        helper.ApagarLinha(0, 20, 8);
-        helper.CursorPosition(0, 0);
     }
 }

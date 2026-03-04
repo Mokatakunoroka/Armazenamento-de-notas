@@ -57,4 +57,9 @@ public class AllEnums
         Trimestre,
         Semestre
     }
+    public enum Status
+    {
+        Reprovado,
+        Aprovado
+    }
 }

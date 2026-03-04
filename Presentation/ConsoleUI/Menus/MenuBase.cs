@@ -1,11 +1,12 @@
 using Domain.Enums;
+using Infrastructure.Persistence;
 using Presentation.Utils;
 namespace Presentation.ConsoleUI.Menus;
-public class MenuBase
+public class MenuBase : JsonFileHelper
 {
     private readonly Manager manager;
     private readonly Helper helper;
-    public MenuBase(Manager manager, Helper helper)
+    public MenuBase(Manager manager, Helper helper) : base(manager, helper)
     {
         this.manager = manager;
         this.helper = helper;
@@ -272,5 +273,9 @@ public class MenuBase
                 Console.WriteLine($"  {item.Key}{final}");
             }
         }
+    }
+    protected void UsuarioLogado(string usuario)
+    {
+        SalvarUsuarioLogado(usuario);
     }
 }

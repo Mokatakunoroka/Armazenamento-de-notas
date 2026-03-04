@@ -8,7 +8,7 @@ namespace Presentation.ConsoleUI;
 public class Manager
 {
     public AllEnums.EscolherMenu IniciarMenu { get; set; }
-    public Informacoes UsuarioLogado {get; set;}
+    public Informacoes? UsuarioLogado {get; set;}
     private Helper helper;
     public Manager(Helper helper)
     {
@@ -25,7 +25,7 @@ public class Manager
         }
         else if (IniciarMenu == AllEnums.EscolherMenu.MenuMaterias)
         {
-            var JsonRepository = new JsonRepository(helper);
+            var JsonRepository = new JsonRepository(helper, this);
             var MenuMaterias = new MenuMaterias(this, helper, JsonRepository);
             MenuMaterias.Redirecionar();
         }
@@ -38,12 +38,8 @@ public class Manager
         {
             var stringHelper = new StringHelper(this, helper);
             var Cadastro = new Cadastro(this, helper, stringHelper);
-            var (usuario, senha, periodo) = Cadastro.InputInfoUser();
-            var JsonRepository = new JsonRepository(helper);
-            JsonRepository.SalvarUsuario(usuario, senha, periodo);
-            IniciarMenu = AllEnums.EscolherMenu.MenuMaterias;
-            Posicao = 0;
-            QtdInstanciadaMenus = 0;
+            Cadastro.InputInfoUser();
+            MudarMenu(AllEnums.EscolherMenu.MenuMaterias);
         }
         else if (IniciarMenu == AllEnums.EscolherMenu.Login)
         {
@@ -53,9 +49,7 @@ public class Manager
             {
                 if (Login.Logar(inputLogin.Value.usuario, inputLogin.Value.senha))
                 {
-                    IniciarMenu = AllEnums.EscolherMenu.MenuMaterias;
-                    Posicao = 0;
-                    QtdInstanciadaMenus = 0;
+                    MudarMenu(AllEnums.EscolherMenu.MenuMaterias);
                 }
             }
 
@@ -64,5 +58,11 @@ public class Manager
         {
             //Periodo
         }
+    }
+    public void MudarMenu(AllEnums.EscolherMenu mudarPara)
+    {
+        IniciarMenu = mudarPara;
+        Posicao = 0;
+        QtdInstanciadaMenus = 0;
     }
 }

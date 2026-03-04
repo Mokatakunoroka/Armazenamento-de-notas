@@ -11,6 +11,18 @@
       "senha": "123",
       "periodo": 2,
       "listaMaterias": []
+    },
+    {
+      "usuario": "peid\u0000o teste",
+      "senha": "peid\u0000o teste",
+      "periodo": 2,
+      "listaMaterias": []
+    },
+    {
+      "usuario": "peid\u0000o",
+      "senha": "peid\u0000o",
+      "periodo": 1,
+      "listaMaterias": []
     }
   ]
 }

@@ -2,10 +2,11 @@ using Presentation.ConsoleUI;
 using Domain.Enums;
 using Presentation.Utils;
 using Presentation.ConsoleUI.Menus;
+using Infrastructure.Persistence;
+using System.Data.Common;
 namespace Application.Service;
 public class Cadastro : MenuBase
 {
-
     private Manager manager;
     private Helper helper;
     private StringHelper stringHelper;
@@ -15,37 +16,44 @@ public class Cadastro : MenuBase
         this.manager = manager;
         this.stringHelper = stringHelper;
     }
-    public (string usuario, string senha, AllEnums.Periodo periodo) InputInfoUser()
+    public void InputInfoUser()
     {
         string usuario = "";
         string senha = "";
-        EscrevendoEstrutura();
         while (true)
         {
-            Console.CursorVisible = true;
-            usuario = stringHelper.Input(37, 1);
-            senha = stringHelper.Input(22, 2);
-            if (stringHelper.ValidarEntrada(usuario) && stringHelper.ValidarEntrada(senha) &&
-                stringHelper.ValidarTamanho(usuario) && stringHelper.ValidarTamanho(senha))
+            try
             {
-                break;
+                EscrevendoEstrutura();
+                Console.CursorVisible = true;
+                usuario = stringHelper.Input(37, 1);
+                senha = stringHelper.Input(22, 2);
+                if (stringHelper.ValidarEntrada(usuario) && stringHelper.ValidarEntrada(senha) &&
+                    stringHelper.ValidarTamanho(usuario) && stringHelper.ValidarTamanho(senha))
+                {
+                    break;
+                }
+                else
+                {
+                    helper.ApagarLinha(37, 40, 1);
+                    helper.ApagarLinha(22, 40, 2);
+                    throw new ArgumentException("Nome ou senha inválida.");
+                }
             }
-            else
+            catch (ArgumentException ex)
             {
-                helper.CursorPosition(0, 5);
-                Console.WriteLine("Por favor digite um nome de usuário e senha válidos.");
-                Console.CursorVisible = false;
-                helper.ApagarLinha(37, 40, 1);
-                helper.ApagarLinha(22, 40, 2);
-                Console.ReadKey(true);
-                helper.CursorPosition(37, 1);
+                helper.TratarErro(ex);
+            }
+            finally
+            {
+                helper.ApagarMenu(manager.IniciarMenu);
+                AllEnums.Periodo periodo = RetornaPeriodo();
+                helper.ApagarMenu(manager.IniciarMenu);
+                JsonRepository json = new JsonRepository(helper, manager);
+                json.SalvarUsuario(usuario, senha, periodo);
+                SalvarUsuarioLogado(usuario);
             }
         }
-        helper.ApagarMenu(manager.IniciarMenu);
-        AllEnums.Periodo periodo = RetornaPeriodo();
-        helper.ApagarMenu(manager.IniciarMenu);
-        //LER O JSON, TRANSFORMAR EM OBJETO E SALVAR O CONTEUDO DO USUÁRIO NA PROPRIEDADE UsuarioLogado
-        return (usuario, senha, periodo);
     }
     public AllEnums.Periodo RetornaPeriodo()
     {

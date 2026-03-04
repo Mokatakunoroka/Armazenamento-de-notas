@@ -53,17 +53,15 @@ public class Login : MenuBase
             Console.WriteLine("Cadastre primeiro!");
             Console.ReadKey(true);
             helper.ApagarLinha(0, 20, 0);
-            manager.QtdInstanciadaMenus = 0;
-            manager.Posicao = 0;
-            manager.IniciarMenu = Domain.Enums.AllEnums.EscolherMenu.MenuInicial;
+            manager.MudarMenu(Domain.Enums.AllEnums.EscolherMenu.MenuInicial);
             return null;
         }
     }
     public bool Logar(string usuario, string senha)
     {
-        string jsonLido = File.ReadAllText("dados.json");
         try
         {
+            string jsonLido = File.ReadAllText("dados.json");
             BancoDeUsuarios? banco = JsonSerializer.Deserialize<BancoDeUsuarios>(jsonLido);
             if (banco == null || banco.Users == null)
             {
@@ -81,9 +79,7 @@ public class Login : MenuBase
         }
         catch
         {
-            helper.ApagarMenu(manager.IniciarMenu);
-            helper.CursorPosition(0,0);
-            Console.WriteLine("dados.json está corrompido ou inválido.");
+            helper.TratarErro(new ArgumentException("Banco inválido."));
             return false;
         }
     }

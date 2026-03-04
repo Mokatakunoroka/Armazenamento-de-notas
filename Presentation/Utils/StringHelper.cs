@@ -37,5 +37,26 @@ public class StringHelper
         }
         return true;
     }
-
+    public string Capitalizar(string mensagem)
+    {
+        string mensagemFormatada = mensagem.Trim().ToLower();
+        string[] mensagemSeparada = mensagemFormatada.Split();
+        List<string> resultadoTemporario = new List<string>();
+        HashSet<string> naoAlterar = new()
+        {
+            "de", "a", "e", "ao", "ou", "o", "da"
+        };
+        foreach (string elemento in mensagemSeparada)
+        {
+            if (naoAlterar.Contains(elemento))
+            {
+                resultadoTemporario.Add(elemento);
+            }
+            else
+            {
+                resultadoTemporario.Add(char.ToUpper(elemento[0]) + elemento.Substring(1));
+            }
+        }
+        return string.Join(" ", resultadoTemporario);
+    }
 }

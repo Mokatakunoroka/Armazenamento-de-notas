@@ -126,7 +126,7 @@ public class Helper
     {
         if (typeEnum == typeof(AllEnums.Cadastro) || typeEnum == typeof(AllEnums.Login))
         {
-            int y = 5;
+            int y = Enum.GetValues(typeEnum).Length + 1;;
             int x = 80;
             while (true)
             {
@@ -179,5 +179,14 @@ public class Helper
                 break;
             }
         }
+    }
+    public void TratarErro(ArgumentException ex)
+    {
+        CursorPosition(0, 5);
+        Console.WriteLine(ex);
+        Console.ReadKey(true);
+        ApagarLinha(0, 100, 5);
+        ApagarLinha(0, 200, 6);
+        CursorPosition(0, 0);
     }
 }
