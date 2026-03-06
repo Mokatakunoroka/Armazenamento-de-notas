@@ -2,6 +2,7 @@ using Presentation.ConsoleUI;
 using Presentation.Utils;
 using Domain.Enums;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Application.Service;
 public class Nota
@@ -21,7 +22,7 @@ public class Nota
         {
             try
             {
-                string matéria = sHelper.Input("Digite o nome da matéria que será adicionada: ");
+                string materia = sHelper.Input("Digite o nome da matéria que será adicionada: ");
             }
             catch
             {
@@ -29,7 +30,7 @@ public class Nota
             }
         }
     }
-    public void PeriodoCorreto()
+    /*public Dictionary<float, AllEnums.Status> PeriodoCorreto(string materia)
     {
         try
         {
@@ -45,7 +46,7 @@ public class Nota
             {
                 
             }
-            else if (manager.UsuarioLogado.periodo == AllEnums.Periodo.Trimestre)
+            else if (manager.UsuarioLogado.periodo == AllEnums.Periodo.Semestre)
             {
                 
             }
@@ -55,6 +56,60 @@ public class Nota
         {
             helper.TratarErro(ex);
         }
-
+    }*/
+    public float? TransStringFloat(string transformar)
+    {
+        //Transformar sempre para número float em duas casas
+        try
+        {
+         if (float.TryParse(transformar.Trim(), out float valor))
+            {
+                if (valor > 100 ||  valor < 0 || FloatSemVirgula(valor) / 10 > 10)
+                {
+                    throw new ArgumentException("Valor Inválido");
+                }
+                else if (QtdDigitos(valor) == 2 && FloatSemVirgula(valor) > 1)
+                {
+                    return FloatSemVirgula(valor) / 10;
+                }
+                else if (valor == 100)
+                {
+                    return valor / 10;
+                }
+                else
+                {
+                    return valor;
+                }
+            }   
+            else
+            {
+            throw new ArgumentException("Não foi possível converter a string para float.");
+            }
+        }
+        catch (ArgumentException ex)
+        {
+            helper.TratarErro(ex);
+            return null;
+        }
+    }
+    public int QtdDigitos(float numero)
+    {
+        int temp = numero.ToString(CultureInfo.InvariantCulture).Split(".").Count();
+        if (temp > 1)
+        {
+            string[] resultado = numero.ToString(CultureInfo.InvariantCulture).Split(".");
+            return Math.Abs(string.Join("", resultado).Replace("-", "").Length);
+        }
+        return Math.Abs(numero.ToString(CultureInfo.InvariantCulture).Length);
+    }
+    public float FloatSemVirgula(float numero)
+    {
+        if (numero < 1)
+        {
+            return Math.Abs(numero);
+        }
+        string resultado = string.Join("", numero.ToString(CultureInfo.InvariantCulture).Split("."));
+        bool conversao = int.TryParse(resultado, out int valor);
+        return Math.Abs(valor);
     }
 }

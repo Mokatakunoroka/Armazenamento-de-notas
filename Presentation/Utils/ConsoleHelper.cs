@@ -184,9 +184,8 @@ public class Helper
     {
         CursorPosition(0, 5);
         Console.WriteLine(ex);
+        ApagarLinha(0, 180, 6);
         Console.ReadKey(true);
-        ApagarLinha(0, 100, 5);
-        ApagarLinha(0, 200, 6);
         CursorPosition(0, 0);
     }
 }
