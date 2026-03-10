@@ -2,7 +2,7 @@
 using Presentation.Utils;
 using Domain.Enums;
 using Application.Service;
-class Program
+class Program 
 {
     static void Main(string[] args)
     {

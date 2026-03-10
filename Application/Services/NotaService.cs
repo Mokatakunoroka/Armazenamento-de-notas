@@ -36,19 +36,19 @@ public class Nota
         {
             if (manager.UsuarioLogado == null)
             {
-                throw new ArgumentException("Usuario logado ainda não foi setado.");
+                throw new ArgumentException("Não existe usuário logado.");
             }
             if (manager.UsuarioLogado.periodo == AllEnums.Periodo.Bimestre)
             {
-                
+                // Seria interessante saber qual bimestre o usuário está, para depois calcular corretamente.
             }
             else if (manager.UsuarioLogado.periodo == AllEnums.Periodo.Trimestre)
             {
-                
+                // Seria interessante saber qual bimestre o usuário está, para depois calcular corretamente.
             }
             else if (manager.UsuarioLogado.periodo == AllEnums.Periodo.Semestre)
             {
-                
+                // Seria interessante saber qual bimestre o usuário está, para depois calcular corretamente.
             }
 
         }

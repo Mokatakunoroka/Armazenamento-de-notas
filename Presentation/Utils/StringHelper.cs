@@ -48,7 +48,11 @@ public class StringHelper
         };
         foreach (string elemento in mensagemSeparada)
         {
-            if (naoAlterar.Contains(elemento))
+            if (string.IsNullOrWhiteSpace(elemento))
+            {
+                continue;
+            }
+            else if (naoAlterar.Contains(elemento))
             {
                 resultadoTemporario.Add(elemento);
             }
