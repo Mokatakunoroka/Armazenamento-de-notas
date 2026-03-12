@@ -20,11 +20,11 @@ public class Cadastro : MenuBase
     {
         string usuario = "";
         string senha = "";
+        EscrevendoEstrutura();
         while (true)
         {
             try
             {
-                EscrevendoEstrutura();
                 Console.CursorVisible = true;
                 usuario = stringHelper.Input(37, 1);
                 senha = stringHelper.Input(22, 2);

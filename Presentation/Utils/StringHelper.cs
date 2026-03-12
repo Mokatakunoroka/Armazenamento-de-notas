@@ -1,5 +1,7 @@
 using Presentation.ConsoleUI;
 using Domain.Enums;
+using System.Drawing;
+using System.ComponentModel;
 namespace Presentation.Utils;
 public class StringHelper
 {
@@ -62,5 +64,11 @@ public class StringHelper
             }
         }
         return string.Join(" ", resultadoTemporario);
+    }
+    public ConsoleColor AlterarCor(string mensagem, ConsoleColor cor)
+    {
+        Console.ForegroundColor = cor;
+        Console.Write(mensagem);
+        return Console.ForegroundColor = ConsoleColor.White;
     }
 }

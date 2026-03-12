@@ -8,7 +8,7 @@ namespace Presentation.ConsoleUI;
 public class Manager
 {
     public AllEnums.EscolherMenu IniciarMenu { get; set; }
-    public Informacoes? UsuarioLogado {get; set;}
+    public Informacoes UsuarioLogado { get; set; } = new Informacoes();
     private Helper helper;
     public Manager(Helper helper)
     {
@@ -54,9 +54,15 @@ public class Manager
             }
 
         }
-        else
+        else if (IniciarMenu == AllEnums.EscolherMenu.Periodo)
         {
             //Periodo
+        }
+        else
+        {
+            var stringHelper = new StringHelper(this, helper);
+            var Nota = new Nota(stringHelper, this, helper);
+            Nota.PeriodoCorreto("Peixe");
         }
     }
     public void MudarMenu(AllEnums.EscolherMenu mudarPara)

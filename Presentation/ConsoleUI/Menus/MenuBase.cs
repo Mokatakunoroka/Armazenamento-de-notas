@@ -33,16 +33,21 @@ public class MenuBase : JsonFileHelper
         {
             EstruturaBase(typeof(AllEnums.Login));
         }
-        else
+        else if (manager.IniciarMenu == AllEnums.EscolherMenu.Periodo)
         {
             EstruturaBase(typeof(AllEnums.Periodo));
+        }
+        else
+        {
+            EstruturaBase(typeof(AllEnums.InfoAdicional));
         }
     }
     private void EstruturaBase(Type qualEnum)
     {
         helper.Color(backColor: ConsoleColor.Black, letterColor: ConsoleColor.Yellow);
         helper.CursorPosition(0, 0);
-        if (qualEnum == typeof(AllEnums.Cadastro) || qualEnum == typeof(AllEnums.Login))
+        if (qualEnum == typeof(AllEnums.Cadastro) || qualEnum == typeof(AllEnums.Login)
+            || qualEnum == typeof(AllEnums.InfoAdicional))
         {
             Console.WriteLine(helper.RepeatChar(letter: '-', qtd: 80));
             for (int i = 0; i < Enum.GetValues(qualEnum).Length; i++)
@@ -60,6 +65,18 @@ public class MenuBase : JsonFileHelper
             }
             Console.WriteLine(helper.RepeatChar(letter: '-', qtd: 40));
         }
+        Console.ResetColor();
+    }
+    public void EstruturaBase(int x, int y)
+    {
+        helper.Color(backColor: ConsoleColor.Black, letterColor: ConsoleColor.Yellow);
+        helper.CursorPosition(0, 0);
+        Console.WriteLine(helper.RepeatChar(letter: '-', qtd: x));
+        for (int i = 0; i < y; i++)
+        {
+            Console.WriteLine("|" + "|".PadLeft(39));
+        }
+        Console.WriteLine(helper.RepeatChar(letter: '-', qtd: x));
         Console.ResetColor();
     }
     public void EscrevendoEstrutura()
@@ -88,9 +105,13 @@ public class MenuBase : JsonFileHelper
             {
                 AuxiliarEscreverOpcoes(typeof(AllEnums.Login));
             }
-            else
+            else if (manager.IniciarMenu == AllEnums.EscolherMenu.Periodo)
             {
                 AuxiliarEscreverOpcoes(typeof(AllEnums.Periodo));
+            }
+            else
+            {
+                AuxiliarEscreverOpcoes(typeof(AllEnums.InfoAdicional));
             }
         }
     }
@@ -100,7 +121,8 @@ public class MenuBase : JsonFileHelper
         int indice = 0;
         foreach (KeyValuePair<string, string> item in helper.EnumCorrected(typeEnum))
         {
-            if (manager.IniciarMenu != AllEnums.EscolherMenu.Cadastro && manager.IniciarMenu != AllEnums.EscolherMenu.Login)
+            if (manager.IniciarMenu != AllEnums.EscolherMenu.Cadastro && manager.IniciarMenu != AllEnums.EscolherMenu.Login
+                && manager.IniciarMenu != AllEnums.EscolherMenu.InfoAdicional)
             {
                 SubAuxiliarOpcoes(indice, item, y, '.', typeEnum);
                 y++;
@@ -116,7 +138,8 @@ public class MenuBase : JsonFileHelper
     }
     private void SubAuxiliarOpcoes(int indice, KeyValuePair<string, string> item, int y, char final, Type qualEnum)
     {
-        if (qualEnum == typeof(AllEnums.Cadastro) || qualEnum == typeof(AllEnums.Login))
+        if (qualEnum == typeof(AllEnums.Cadastro) || qualEnum == typeof(AllEnums.Login)
+            || qualEnum == typeof(AllEnums.InfoAdicional))
         {
             if (manager.Posicao == indice) //opção selecionada
             {
@@ -187,9 +210,13 @@ public class MenuBase : JsonFileHelper
         {
             return typeof(AllEnums.Login);
         }
-        else
+        else if (manager.IniciarMenu == AllEnums.EscolherMenu.Periodo)
         {
             return typeof(AllEnums.Periodo);
+        }
+        else
+        {
+            return typeof(AllEnums.InfoAdicional);
         }
     }
     protected AllEnums.Teclas ReescritaParcial()
@@ -216,9 +243,13 @@ public class MenuBase : JsonFileHelper
         {
             AuxiliarReescritaParcial(typeof(AllEnums.Login));
         }
-        else
+        else if (manager.IniciarMenu == AllEnums.EscolherMenu.Periodo)
         {
             AuxiliarReescritaParcial(typeof(AllEnums.Periodo));
+        }
+        else
+        {
+            AuxiliarReescritaParcial(typeof(AllEnums.InfoAdicional));
         }
         return tecla;
     }
@@ -229,7 +260,8 @@ public class MenuBase : JsonFileHelper
         int y = 1;
         foreach (KeyValuePair<string, string> item in helper.EnumCorrected(typeEnum))
         {
-            if (manager.IniciarMenu == AllEnums.EscolherMenu.Cadastro || manager.IniciarMenu == AllEnums.EscolherMenu.Login)
+            if (manager.IniciarMenu == AllEnums.EscolherMenu.Cadastro || manager.IniciarMenu == AllEnums.EscolherMenu.Login
+                || manager.IniciarMenu == AllEnums.EscolherMenu.InfoAdicional)
             {
                 SubAuxiliarParcial(indice, item, y, posicaoAnterior, ':', typeEnum);
                 indice++;
@@ -245,7 +277,8 @@ public class MenuBase : JsonFileHelper
     }
     private void SubAuxiliarParcial(int indice, KeyValuePair<string, string> item, int y, int posicaoAnterior, char final, Type qualEnum)
     {
-        if (qualEnum == typeof(AllEnums.Cadastro) || qualEnum == typeof(AllEnums.Login))
+        if (qualEnum == typeof(AllEnums.Cadastro) || qualEnum == typeof(AllEnums.Login)
+            || qualEnum == typeof(AllEnums.InfoAdicional))
         {
             if (manager.Posicao == indice)
             {

@@ -3,7 +3,7 @@
     {
       "usuario": "",
       "senha": "",
-      "periodo": 0,
+      "periodo": 4,
       "listaMaterias": []
     },
     {
@@ -21,7 +21,7 @@
     {
       "usuario": "peid\u0000o",
       "senha": "peid\u0000o",
-      "periodo": 1,
+      "periodo": 3,
       "listaMaterias": []
     }
   ]

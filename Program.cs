@@ -2,6 +2,8 @@
 using Presentation.Utils;
 using Domain.Enums;
 using Application.Service;
+using Domain.Enttities;
+using System.Text.Json;
 class Program 
 {
     static void Main(string[] args)
@@ -10,7 +12,17 @@ class Program
         Console.InputEncoding = System.Text.Encoding.UTF8; //Aceitar a entrada de dados em UTF-8
         Console.Clear();
         var Manager = new Manager(new Helper());
-        Manager.IniciarMenu = AllEnums.EscolherMenu.MenuInicial;
+        string jsonlido = File.ReadAllText("dados.json");
+        BancoDeUsuarios banco = JsonSerializer.Deserialize<BancoDeUsuarios>(jsonlido)!;
+        foreach (var conteudo in banco.Users)
+        {
+            if (conteudo.periodo == AllEnums.Periodo.Trimestre)
+            {
+                Manager.UsuarioLogado = conteudo;
+                break;
+            }
+        }
+        Manager.IniciarMenu = AllEnums.EscolherMenu.InfoAdicional;
         bool ativo = true;
         while (ativo)
         {

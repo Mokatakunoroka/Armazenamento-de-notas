@@ -8,7 +8,8 @@ public class AllEnums
         MenuMaterias,
         Cadastro,
         Login,
-        Periodo
+        Periodo,
+        InfoAdicional
     }
     public enum MenuInicial
     {
@@ -47,15 +48,20 @@ public class AllEnums
         DigiteSeuNome,
         DigiteSuaSenha,
     }
+    public enum InfoAdicional
+    {
+        DigiteOPeriodoLetivo,
+        DigiteAMédia
+    }
     public enum MensagemErro
     {
         DigiteAlgoVálido
     }
     public enum Periodo
     {
-        Bimestre,
-        Trimestre,
-        Semestre
+        Bimestre = 4,
+        Trimestre = 3,
+        Semestre = 2
     }
     public enum Status
     {
